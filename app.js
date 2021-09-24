@@ -2,11 +2,13 @@ const loadConfig = require('./utils/config-loader.js');
 const Discord = require('discord.js');
 const loadCommands = require('./utils/command-loader.js');
 const refreshCommands = require('./utils/command-refresher.js');
+const { Player } = require("discord-player");
 
 const config = loadConfig();
 
-const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILD_MESSAGES] });
+const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_VOICE_STATES, Discord.Intents.FLAGS.GUILDS] });
 client.commands = new Discord.Collection();
+client.player = new Player(client);
 const deploymentCommands = [];
 
 loadCommands(client.commands);
